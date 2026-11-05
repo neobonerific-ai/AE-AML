@@ -14,6 +14,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -65,13 +69,30 @@ jobs:
           chmod +x scripts/image_mt_ae
           PROJECT=S812 DEVICE=M8S ARCH=arm CUSTOM_VERSION="${{ github.event.inputs.custom_version || '3.3.3-baseline' }}" CONCURRENCY_MAKE_LEVEL=2 THREADS=2 ./scripts/image_mt_ae mkimage
 
+      - name: Upload diagnostic logs
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: build-logs-${{ github.run_id }}
+          path: build.AlexELEC-S812.arm/build_mt/logs/
+          if-no-files-found: warn
+
+      - name: Verify build outputs
+        run: |
+          set -e
+          IMG=$(find . -name '*.img.gz' | head -1)
+          TAR=$(find . -name '*.tar' | head -1)
+          test -n "$IMG" || { echo "missing .img.gz"; exit 1; }
+          test -n "$TAR" || { echo "missing .tar"; exit 1; }
+          sha256sum "$IMG" "$TAR" > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
       - name: Discover outputs
         run: find target -type f 2>/dev/null | head -50; echo "---"; ls -la target 2>/dev/null
 
       - name: Generate checksums
         run: |
-          cd target 2>/dev/null && sha256sum * > ../SHA256SUMS.txt 2>/dev/null || true
-          cat SHA256SUMS.txt 2>/dev/null || true
+          cat SHA256SUMS.txt
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v5
