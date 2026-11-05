@@ -13,6 +13,7 @@ PKG_LONGDESC="Utility to maintain groups of programs."
 
 pre_configure_host() {
   export CC=$LOCAL_CC
+  export CFLAGS="$CFLAGS -D__stat=stat"
 }
 
 post_makeinstall_host() {
