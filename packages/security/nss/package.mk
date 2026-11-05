@@ -26,7 +26,7 @@ make_host() {
      USE_SYSTEM_ZLIB=1 ZLIB_LIBS="-lz -L$TOOLCHAIN/lib" \
      SKIP_SHLIBSIGN=1 \
      NSS_TESTS="dummy" \
-     CC=$CC LDFLAGS="$LDFLAGS -L$TOOLCHAIN/lib" \
+     CC="$CC -Wno-error=misleading-indentation" LDFLAGS="$LDFLAGS -L$TOOLCHAIN/lib" \
      V=1
 }
 
