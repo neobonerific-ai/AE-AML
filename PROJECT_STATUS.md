@@ -4,9 +4,9 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42089674016 (completed/failure, commit 8ab14bc) — fakeroot:host configure CFLAGS pollution; fixed by removing env exports (source patch remains)
-Commit SHA: e56efca (latest status commit; code fix 643c1ae)
-Status: in_progress (42089674016 at 8ab14bc) + pending (42100301559 at e56efca). No action taken — runs active.
+Run ID: 42109691763 (pending, commit f35cf4a) — fakeroot:host CFLAGS pollution fix pushed; awaiting run
+Commit SHA: f35cf4a (latest push); status commit 875b9c1
+Status: in_progress (42100301559 at e56efca) + pending (42109691763 at f35cf4a). No action taken — runs active.
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -45,3 +45,4 @@ Status: in_progress (42089674016 at 8ab14bc) + pending (42100301559 at e56efca).
 - 42076040456 (cancelled, e1a369a)
 - 42080892029 (cancelled, ac1a0e4)
 - 42089674016 (failure, fixed by fakeroot CFLAGS env removal)
+- 42100244040 (cancelled, 643c1ae)
