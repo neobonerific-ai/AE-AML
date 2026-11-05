@@ -1,0 +1,10 @@
+--- a/gold/descriptors.cc	2026-11-05 13:30:06.155507536 +0100
++++ b/gold/descriptors.cc	2026-11-05 13:30:06.167501595 +0100
+@@ -26,6 +26,7 @@
+ #include <cstdio>
+ #include <cstring>
+ #include <fcntl.h>
++#include <string>
+ #include <unistd.h>
+ 
+ #include "debug.h"
