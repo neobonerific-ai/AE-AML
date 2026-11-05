@@ -4,9 +4,9 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42089649949 (completed/failure, commit 3f5a9dd) — nss:host return-local-addr; fixed by 643c1ae (pushed, new run pending)
-Commit SHA: 643c1ae (pushed)
-Status: in_progress (new run pending, 42089674016)
+Run ID: 42089649949 (completed/failure, commit 3f5a9dd) — nss:host return-local-addr; fixed by 643c1ae (pushed)
+Commit SHA: e56efca (latest status commit; code fix 643c1ae)
+Status: in_progress (42089674016 at 8ab14bc) + pending (42100301559 at e56efca). No action taken — runs active.
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
