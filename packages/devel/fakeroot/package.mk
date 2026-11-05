@@ -17,5 +17,5 @@ PKG_LONGDESC="fakeroot provides a fake root environment by means of LD_PRELOAD a
 PKG_CONFIGURE_OPTS_HOST="--with-gnu-ld"
 
 pre_configure_host() {
-  export CFLAGS="$HOST_CFLAGS -D_STAT_VER=0"
+  export HOST_CFLAGS="$HOST_CFLAGS -D_STAT_VER=0"
 }
