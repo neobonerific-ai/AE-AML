@@ -1,14 +1,15 @@
 --- a/gold/x86_64.cc	2018-07-18 00:00:00.000000000 +0000
 +++ b/gold/x86_64.cc	2018-07-18 00:00:00.000000000 +0000
 @@ -1307,7 +1307,7 @@
-   // Record a target-specific program property from the .note.gnu.property
+   // Record a target-specific program property in the .note.gnu.property
    // section.
    void
--  record_gnu_property(int, int pr_type,
-+  record_gnu_property(int, uint32_t pr_type,
-                       size_t pr_datasz, const unsigned char* pr_data,
-                       const Object* object);
-@@ -1579,7 +1579,7 @@
+-  record_gnu_property(int, int, size_t, const unsigned char*, const Object*);
++  record_gnu_property(int, uint32_t, size_t, const unsigned char*, const Object*);
+ 
+   // Merge the target-specific program properties from the current object.
+   void
+@@ -1580,6 +1580,6 @@
  void
  Target_x86_64<size>::record_gnu_property(
 -    int, int pr_type,
