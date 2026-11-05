@@ -4,9 +4,9 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42076040456 (pending, commit e1a369a) + 42062739704 (in_progress, commit 09f0c1f)
-Commit SHA: e1a369a (pending)
-Status: pending/in_progress (no action)
+Run ID: 42080892029 (pending, commit ac1a0e4) + 42076955862 (in_progress, commit 1eb3765)
+Commit SHA: ac1a0e4 (pushed)
+Status: in_progress/pending (no action)
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -38,7 +38,7 @@ Status: pending/in_progress (no action)
 - 42054945417 (failure, fixed by 258faf8 - fakeroot CFLAGS env)
 - 42054992145 (failure, fixed by 09f0c1f - fakeroot HOST_CFLAGS)
 - 42060246240 (failure, fixed by a509c0c - p7zip narrowing)
-- 42060207935 (cancelled)
+- 42062739704 (failure, fixed by ac1a0e4 - fakeroot _STAT_VER source patch)
 - 42075031696 (cancelled, a509c0c)
 - 42075055502 (cancelled, e9f65bf)
-- 42076040456 (pending, e1a369a)
+- 42076040456 (cancelled, e1a369a)
