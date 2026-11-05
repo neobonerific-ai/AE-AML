@@ -14,11 +14,11 @@ PKG_LONGDESC="p7zip is a port of 7za.exe for POSIX systems like Unix."
 PKG_TOOLCHAIN="manual"
 
 make_host() {
-  make CXX=$CXX CC=$CC 7za
+  make CXX="$CXX -Wno-narrowing" CC=$CC 7za
 }
 
 make_target() {
-  make CXX=$CXX CC=$CC 7z 7za
+  make CXX="$CXX -Wno-narrowing" CC=$CC 7z 7za
 }
 
 makeinstall_host() {
