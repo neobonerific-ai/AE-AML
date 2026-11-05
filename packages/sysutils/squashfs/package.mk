@@ -17,6 +17,7 @@ make_host() {
   make -C squashfs-tools mksquashfs \
        XZ_SUPPORT=1 LZO_SUPPORT=1 ZSTD_SUPPORT=1 \
        XATTR_SUPPORT=0 XATTR_DEFAULT=0 \
+       EXTRA_CFLAGS="-fcommon" \
        INCLUDEDIR="-I. -I$TOOLCHAIN/include"
 }
 
