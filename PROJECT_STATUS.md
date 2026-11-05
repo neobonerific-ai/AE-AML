@@ -4,9 +4,9 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42109691763 (pending, commit f35cf4a) — fakeroot:host CFLAGS pollution fix pushed; awaiting run
-Commit SHA: f35cf4a (latest push); status commit 875b9c1
-Status: in_progress (42100301559 at e56efca) + pending (42109691763 at f35cf4a). No action taken — runs active.
+Run ID: 42110547576 (pending, commit e05c1ca) — monitor status push; awaiting run
+Commit SHA: e05c1ca (latest)
+Status: in_progress (42100301559 at e56efca) + pending (42110547576 at e05c1ca). Run 42109691763 cancelled (superseded). No action taken — runs active.
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -45,4 +45,6 @@ Status: in_progress (42100301559 at e56efca) + pending (42109691763 at f35cf4a).
 - 42076040456 (cancelled, e1a369a)
 - 42080892029 (cancelled, ac1a0e4)
 - 42089674016 (failure, fixed by fakeroot CFLAGS env removal)
+- 42109691763 (cancelled, superseded by 42110547576)
 - 42100244040 (cancelled, 643c1ae)
+- 42100301559 (failure, fixed by b2b847d - squashfs -fcommon)
