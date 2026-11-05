@@ -4,9 +4,9 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42082846949 (completed/failure, commit c062f27) — nss:host misleading-indentation; fixed by 3f5a9dd (pushed, new run pending)
-Commit SHA: 3f5a9dd (pushed)
-Status: in_progress (new run pending)
+Run ID: 42089649949 (completed/failure, commit 3f5a9dd) — nss:host return-local-addr; fixed by 643c1ae (pushed, new run pending)
+Commit SHA: 643c1ae (pushed)
+Status: in_progress (new run pending, 42089674016)
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -19,6 +19,7 @@ Status: in_progress (new run pending)
 - Workflow: concurrency, diagnostic logs, output verification, log filename sanitization
 - libcap:host URL (kernel.org 404 → mirrors.edge.kernel.org)
 - fakeroot:host _STAT_VER=0 for modern glibc
+- nss:host disable return-local-addr error (modern gcc)
 
 ## Open Tasks
 - Monitor current run (push from 186c0e8); identify next failure if any.
@@ -43,4 +44,4 @@ Status: in_progress (new run pending)
 - 42075055502 (cancelled, e9f65bf)
 - 42076040456 (cancelled, e1a369a)
 - 42080892029 (cancelled, ac1a0e4)
-- 42082846949 (failure, fixed by 3f5a9dd - nss host misleading-indentation)
+- 42089649949 (failure, fixed by 643c1ae - nss host return-local-addr)
