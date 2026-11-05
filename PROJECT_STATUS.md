@@ -4,7 +4,7 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42089649949 (completed/failure, commit 3f5a9dd) — nss:host return-local-addr; fixed by 643c1ae (pushed)
+Run ID: 42089674016 (completed/failure, commit 8ab14bc) — fakeroot:host configure CFLAGS pollution; fixed by removing env exports (source patch remains)
 Commit SHA: e56efca (latest status commit; code fix 643c1ae)
 Status: in_progress (42089674016 at 8ab14bc) + pending (42100301559 at e56efca). No action taken — runs active.
 
@@ -44,4 +44,4 @@ Status: in_progress (42089674016 at 8ab14bc) + pending (42100301559 at e56efca).
 - 42075055502 (cancelled, e9f65bf)
 - 42076040456 (cancelled, e1a369a)
 - 42080892029 (cancelled, ac1a0e4)
-- 42089649949 (failure, fixed by 643c1ae - nss host return-local-addr)
+- 42089674016 (failure, fixed by fakeroot CFLAGS env removal)

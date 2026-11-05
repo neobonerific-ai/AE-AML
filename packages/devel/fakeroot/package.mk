@@ -25,7 +25,5 @@ pre_configure_host() {
       sed -i '3i #endif' "$f"
     fi
   done
-  export CFLAGS="${CFLAGS:-} -D_STAT_VER=0"
-  export CPPFLAGS="${CPPFLAGS:-} -D_STAT_VER=0"
-  export HOST_CFLAGS="${HOST_CFLAGS:-} -D_STAT_VER=0"
+  : # _STAT_VER provided via source patch above; do not pollute CFLAGS/env (breaks configure option parsing)
 }
