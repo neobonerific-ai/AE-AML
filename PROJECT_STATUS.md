@@ -4,8 +4,8 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42080892029 (pending, commit ac1a0e4) + 42076955862 (in_progress, commit 1eb3765)
-Commit SHA: ac1a0e4 (pushed)
+Run ID: 42081870788 (pending, commit bba9a14) + 42076955862 (in_progress, commit 1eb3765)
+Commit SHA: bba9a14 (pushed)
 Status: in_progress/pending (no action)
 
 ## Fixes Applied
@@ -42,3 +42,5 @@ Status: in_progress/pending (no action)
 - 42075031696 (cancelled, a509c0c)
 - 42075055502 (cancelled, e9f65bf)
 - 42076040456 (cancelled, e1a369a)
+- 42080892029 (cancelled, ac1a0e4)
+- 42081870788 (pending, bba9a14)
