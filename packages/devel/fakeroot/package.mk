@@ -18,13 +18,13 @@ PKG_CONFIGURE_OPTS_HOST="--with-gnu-ld"
 
 pre_configure_host() {
   # Modern glibc no longer defines _STAT_VER; define it for fakeroot.
-  # pre_configure_host may run with cwd != source tree, so locate files robustly.
-  for f in $(find . -type f \( -name 'libfakeroot.c' -o -name 'faked.c' \) 2>/dev/null); do
-    if ! grep -q '^#define _STAT_VER 0$' "$f" 2>/dev/null; then
-      sed -i '1i #ifndef _STAT_VER' "$f"
-      sed -i '2i #define _STAT_VER 0' "$f"
-      sed -i '3i #endif' "$f"
-    fi
+  for root in "$PWD" "$PKG_BUILD" "/home/runner/work/AE-AML/AE-AML/build.AlexELEC-S812.arm" "."; do
+    [ -d "$root" ] || continue
+    for f in $(find "$root" -type f \( -name 'libfakeroot.c' -o -name 'faked.c' \) 2>/dev/null); do
+      if ! grep -q '#define _STAT_VER 0' "$f" 2>/dev/null; then
+        sed -i '1i #ifndef _STAT_VER\n#define _STAT_VER 0\n#endif' "$f"
+      fi
+    done
   done
   : # _STAT_VER provided via source patch above; do not pollute CFLAGS/env (breaks configure option parsing)
 }
