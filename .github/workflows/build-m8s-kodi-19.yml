@@ -69,6 +69,17 @@ jobs:
           chmod +x scripts/image_mt_ae
           PROJECT=S812 DEVICE=M8S ARCH=arm CUSTOM_VERSION="${{ github.event.inputs.custom_version || '3.3.3-baseline' }}" CONCURRENCY_MAKE_LEVEL=2 THREADS=2 ./scripts/image_mt_ae mkimage
 
+      - name: Sanitize log filenames
+        if: always()
+        run: |
+          LOGDIR="build.AlexELEC-S812.arm/build_mt/logs"
+          if [ -d "$LOGDIR" ]; then
+            find "$LOGDIR" -type f -name '*:*' -print0 | while IFS= read -r -d '' f; do
+              dir=$(dirname "$f"); base=$(basename "$f"); new=${base//:/-}
+              mv "$f" "$dir/$new"
+            done
+          fi
+
       - name: Upload diagnostic logs
         if: always()
         uses: actions/upload-artifact@v5
