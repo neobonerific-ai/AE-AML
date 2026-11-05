@@ -4,9 +4,9 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42050799596 (push)
-Commit SHA: 0a33f04e908ce7becbd5c62439b822e0cabf84a5
-Status: completed (failure, fixed by 186c0e8)
+Run ID: 42054945417 (push)
+Commit SHA: 186c0e81d7aa6a0d96853f49dfe44809fd73140f
+Status: completed (failure, fixed by 258faf8 - fakeroot CFLAGS env)
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -34,4 +34,5 @@ Status: completed (failure, fixed by 186c0e8)
 - 42035914803 (failure)
 - 42038991766 (failure, fixed by b8393f3)
 - 42046808201 (failure, fixed by 0a33f04 - libcap url)
-- 42050799596 (failure, fixed by 186c0e8 - fakeroot _STAT_VER)"
+- 42050799596 (failure, fixed by 186c0e8 - fakeroot _STAT_VER)
+- 42054945417 (failure, fixed by 258faf8 - fakeroot CFLAGS env)"
