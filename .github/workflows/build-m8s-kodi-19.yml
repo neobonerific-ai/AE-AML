@@ -1,0 +1,74 @@
+name: Build AlexELEC S812 M8S (baseline)
+
+on:
+  workflow_dispatch:
+    inputs:
+      custom_version:
+        description: 'Custom version string'
+        required: false
+        default: '3.3.3-baseline'
+  push:
+    branches:
+      - kodi-19.4-m8s
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    env:
+      PROJECT: S812
+      DEVICE: M8S
+      ARCH: arm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check disk space
+        run: df -h
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            wget bash bc gcc sed patch patchutils tar bzip2 gzip perl gawk gperf \
+            zip unzip diffutils lzop libc6-dev libncurses5-dev \
+            build-essential g++ make cmake git python3 python3-pip \
+            xsltproc libxslt1-dev java-common openjdk-11-jre-headless \
+            pigz parallel ccache texinfo help2man gawk chrpath diffstat \
+            libsdl1.2-dev libgl1-mesa-dev
+
+      - name: Setup ccache
+        uses: actions/cache@v4
+        with:
+          path: ~/.ccache
+          key: ccache-${{ runner.os }}-${{ github.ref }}-${{ github.sha }}
+          restore-keys: |
+            ccache-${{ runner.os }}-${{ github.ref }}-
+            ccache-${{ runner.os }}-
+
+      - name: Baseline build
+        run: |
+          chmod +x scripts/image_mt_ae
+          PROJECT=S812 DEVICE=M8S ARCH=arm CUSTOM_VERSION="${{ github.event.inputs.custom_version || '3.3.3-baseline' }}" CONCURRENCY_MAKE_LEVEL=2 THREADS=2 ./scripts/image_mt_ae mkimage
+
+      - name: Discover outputs
+        run: find target -type f 2>/dev/null | head -50; echo "---"; ls -la target 2>/dev/null
+
+      - name: Generate checksums
+        run: |
+          cd target 2>/dev/null && sha256sum * > ../SHA256SUMS.txt 2>/dev/null || true
+          cat SHA256SUMS.txt 2>/dev/null || true
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: alexelec-s812-m8s-baseline
+          path: |
+            target/**
+            SHA256SUMS.txt
+            build.*/**/*.log
+          if-no-files-found: warn
+          retention-days: 14
