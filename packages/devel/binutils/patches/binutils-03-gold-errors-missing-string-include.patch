@@ -1,0 +1,10 @@
+--- a/b/gold/errors.h	2026-11-05 14:26:56.450195217 +0100
++++ b/gold/errors.h	2026-11-05 14:26:56.462189275 +0100
+@@ -24,6 +24,7 @@
+ #define GOLD_ERRORS_H
+ 
+ #include <cstdarg>
++#include <string>
+ 
+ #include "gold-threads.h"
+ 
