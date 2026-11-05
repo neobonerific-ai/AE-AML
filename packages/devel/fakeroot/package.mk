@@ -17,5 +17,15 @@ PKG_LONGDESC="fakeroot provides a fake root environment by means of LD_PRELOAD a
 PKG_CONFIGURE_OPTS_HOST="--with-gnu-ld"
 
 pre_configure_host() {
-  export HOST_CFLAGS="$HOST_CFLAGS -D_STAT_VER=0"
+  # Modern glibc no longer defines _STAT_VER; define it for fakeroot.
+  for f in libfakeroot.c faked.c; do
+    if [ -f "$f" ]; then
+      sed -i '1i #ifndef _STAT_VER' "$f"
+      sed -i '2i #define _STAT_VER 0' "$f"
+      sed -i '3i #endif' "$f"
+    fi
+  done
+  export CFLAGS="${CFLAGS:-} -D_STAT_VER=0"
+  export CPPFLAGS="${CPPFLAGS:-} -D_STAT_VER=0"
+  export HOST_CFLAGS="${HOST_CFLAGS:-} -D_STAT_VER=0"
 }
