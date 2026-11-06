@@ -6,7 +6,7 @@ Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 ## Last Run
 Run ID: 42189276378 completed failure at 1f8d156 (JsonSchemaBuilder:host missing source dir). Fixed by 6b054ef (removed JsonSchemaBuilder:host dependency; kodi builds it internally). Cancelled: 42189254389 (236db32), 42178918000 (c98b824), 42199162794 (8f80723). Run 42178931409 completed failure (sha ae2a042, same root cause, superseded by 6b054ef). Run 42169943705 completed failure at 47d3cf4 (JsonSchemaBuilder:host wrong build dir PKG_NAME); fixed by 236db32 then superseded by 6b054ef.
 Commit SHA: 6b054ef (latest)
-Status: no in-progress runs; dispatching workflow to verify 6b054ef fix.
+Status: dispatched run 42213571615 (workflow_dispatch) to verify 6b054ef fix. No push-triggered builds.
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
