@@ -983,7 +983,7 @@ kernel_make() {
       ARCH="$TARGET_KERNEL_ARCH" \
       HOSTCC="$TOOLCHAIN/bin/host-gcc" \
       HOSTCXX="$TOOLCHAIN/bin/host-g++" \
-      HOSTCFLAGS="$HOST_CFLAGS" \
+      HOSTCFLAGS="$HOST_CFLAGS -fcommon" \
       HOSTLDFLAGS="$HOST_LDFLAGS" \
       HOSTCXXFLAGS="$HOST_CXXFLAGS" \
       DEPMOD="$TOOLCHAIN/bin/depmod" \
