@@ -4,8 +4,8 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42134780309 completed failure at d2996d5 (dtc yylloc multiple definition). Fix pushed 32484d1 (linux host -fcommon). New run pending.
-Commit SHA: 32484d1 (latest)
+Run ID: 42147839351 completed failure at 32484d1 (gpu-aml source checksum mismatch). Fix pushed ba569c6 (pin full commit SHA + correct SHA256). New run pending.
+Commit SHA: ba569c6 (latest)
 Status: pushed; awaiting run. No workflow_dispatch.
 
 ## Fixes Applied
@@ -53,3 +53,4 @@ Status: pushed; awaiting run. No workflow_dispatch.
 - 42125766859 (failure, superseded by 53b9081 - cpio fix; sha d7869e9 pre-fix)
 - 42100301559 (failure, fixed by b2b847d - squashfs -fcommon)
 - 42134780309 (failure, fixed by 32484d1 - linux host dtc -fcommon)
+- 42147839351 (failure, fixed by ba569c6 - gpu-aml pin full SHA + SHA256)
