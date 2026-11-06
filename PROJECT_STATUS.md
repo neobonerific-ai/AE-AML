@@ -4,9 +4,10 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42156172108 completed failure at 4ae294b (JsonSchemaBuilder:host toolchain detection). Fix pushed 7c3b072 (PKG_TOOLCHAIN=cmake). New run pending.
-Commit SHA: 7c3b072 (latest)
-Status: pushed; awaiting run. No workflow_dispatch.
+Run ID: 42156172108 completed failure at 4ae294b (JsonSchemaBuilder:host toolchain detection). Fix pushed 7c3b072 (PKG_TOOLCHAIN=cmake).
+Active runs: 42169943705 in_progress (sha 47d3cf4→c98b824). Run 42169923328 completed failure (JsonSchemaBuilder source dir); fixed by c98b824 (PKG_CMAKE_SCRIPT own build dir).
+Commit SHA: c98b824 (latest)
+Status: awaiting active runs. No workflow_dispatch.
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -56,3 +57,4 @@ Status: pushed; awaiting run. No workflow_dispatch.
 - 42147839351 (failure, fixed by ba569c6 - gpu-aml pin full SHA + SHA256)
 - 42147858736 (failure at 5dde57a, pre-gpu-aml-fix; superseded by ba569c6)
 - 42156172108 (failure, fixed by 7c3b072 - JsonSchemaBuilder PKG_TOOLCHAIN=cmake)
+- 42169923328 (failure, fixed by c98b824 - JsonSchemaBuilder PKG_CMAKE_SCRIPT own build dir)
