@@ -4,8 +4,8 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42169943705 completed failure at 47d3cf4 (JsonSchemaBuilder:host wrong build dir PKG_NAME). Fix pushed 236db32 (revert to MEDIACENTER build dir). Active run: 42178931409 in_progress (sha ae2a042→236db32). Run 42169923328 completed failure (JsonSchemaBuilder source dir); fixed by c98b824 (superseded, reverted by 236db32).
-Commit SHA: 236db32 (latest)
+Run ID: 42169943705 completed failure at 47d3cf4 (JsonSchemaBuilder:host wrong build dir PKG_NAME). Fix pushed 236db32 (revert to MEDIACENTER build dir). Active runs: 42178931409 in_progress (sha ae2a042), 42189276378 pending (sha 1f8d156). Cancelled: 42189254389 (236db32), 42178918000 (c98b824). Run 42169923328 completed failure (JsonSchemaBuilder source dir); fixed by c98b824 (superseded, reverted by 236db32).
+Commit SHA: 1f8d156 (latest)
 Status: awaiting active runs. No workflow_dispatch.
 
 ## Fixes Applied
