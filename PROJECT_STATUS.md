@@ -4,9 +4,7 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42189276378 completed failure at 1f8d156 (JsonSchemaBuilder:host missing source dir). Fixed by 6b054ef (removed JsonSchemaBuilder:host dependency; kodi builds it internally). Cancelled: 42189254389 (236db32), 42178918000 (c98b824), 42199162794 (8f80723). Run 42178931409 completed failure (sha ae2a042, same root cause, superseded by 6b054ef). Run 42169943705 completed failure at 47d3cf4 (JsonSchemaBuilder:host wrong build dir PKG_NAME); fixed by 236db32 then superseded by 6b054ef.
-Commit SHA: 6b054ef (latest)
-Status: dispatched run 42213571615 (workflow_dispatch) to verify 6b054ef fix. No push-triggered builds.
+Run ID: 42213571615 completed failure (JsonSchemaBuilder:host still present in projects/S812/packages/kodi/package.mk; fix 6b054ef only touched packages/mediacenter template). Fixed by 6829f8a (removed dep from S812 project kodi). Dispatched run 42221310737 to verify 6829f8a. Commit SHA: 6829f8a (latest)
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -59,4 +57,4 @@ Status: dispatched run 42213571615 (workflow_dispatch) to verify 6b054ef fix. No
 - 42169923328 (failure, fixed by c98b824 - JsonSchemaBuilder PKG_CMAKE_SCRIPT own build dir)
 - 42169943705 (failure, fixed by 236db32 - JsonSchemaBuilder:host revert to MEDIACENTER build dir)
 - 42178931409 (failure - JsonSchemaBuilder:host source dir absent, superseded by 6b054ef)
-- 42189276378 (failure, fixed by 6b054ef - removed JsonSchemaBuilder:host dependency)
+- 42213571615 (failure, fixed by 6829f8a - JsonSchemaBuilder:host in S812 project kodi)
