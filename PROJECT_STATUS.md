@@ -4,8 +4,8 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42147839351 completed failure at 32484d1 (gpu-aml source checksum mismatch). Fix pushed ba569c6 (pin full commit SHA + correct SHA256). New run pending.
-Commit SHA: ba569c6 (latest)
+Run ID: 42156172108 completed failure at 4ae294b (JsonSchemaBuilder:host toolchain detection). Fix pushed 7c3b072 (PKG_TOOLCHAIN=cmake). New run pending.
+Commit SHA: 7c3b072 (latest)
 Status: pushed; awaiting run. No workflow_dispatch.
 
 ## Fixes Applied
@@ -54,3 +54,5 @@ Status: pushed; awaiting run. No workflow_dispatch.
 - 42100301559 (failure, fixed by b2b847d - squashfs -fcommon)
 - 42134780309 (failure, fixed by 32484d1 - linux host dtc -fcommon)
 - 42147839351 (failure, fixed by ba569c6 - gpu-aml pin full SHA + SHA256)
+- 42147858736 (failure at 5dde57a, pre-gpu-aml-fix; superseded by ba569c6)
+- 42156172108 (failure, fixed by 7c3b072 - JsonSchemaBuilder PKG_TOOLCHAIN=cmake)
