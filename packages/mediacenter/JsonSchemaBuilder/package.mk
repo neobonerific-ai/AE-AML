@@ -13,7 +13,7 @@ PKG_DEPENDS_HOST="ninja:host"
 
 PKG_TOOLCHAIN="cmake"
 
-PKG_CMAKE_SCRIPT="$(get_build_dir $PKG_NAME)/tools/depends/native/JsonSchemaBuilder/CMakeLists.txt"
+PKG_CMAKE_SCRIPT="$(get_build_dir $MEDIACENTER)/tools/depends/native/JsonSchemaBuilder/CMakeLists.txt"
 
 PKG_CMAKE_OPTS_HOST="-Wno-dev"
 
