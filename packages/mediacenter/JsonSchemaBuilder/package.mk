@@ -11,6 +11,8 @@ PKG_NEED_UNPACK="$(get_pkg_directory $MEDIACENTER)"
 PKG_LONGDESC="kodi-platform:"
 PKG_DEPENDS_HOST="ninja:host"
 
+PKG_TOOLCHAIN="cmake"
+
 PKG_CMAKE_SCRIPT="$(get_build_dir $MEDIACENTER)/tools/depends/native/JsonSchemaBuilder/CMakeLists.txt"
 
 PKG_CMAKE_OPTS_HOST="-Wno-dev"
