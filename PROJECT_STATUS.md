@@ -4,9 +4,8 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42156172108 completed failure at 4ae294b (JsonSchemaBuilder:host toolchain detection). Fix pushed 7c3b072 (PKG_TOOLCHAIN=cmake).
-Active runs: 42169943705 in_progress (sha 47d3cf4→c98b824). Run 42169923328 completed failure (JsonSchemaBuilder source dir); fixed by c98b824 (PKG_CMAKE_SCRIPT own build dir).
-Commit SHA: c98b824 (latest)
+Run ID: 42169943705 completed failure at 47d3cf4 (JsonSchemaBuilder:host wrong build dir PKG_NAME). Fix pushed 236db32 (revert to MEDIACENTER build dir). Active run: 42178931409 in_progress (sha ae2a042→236db32). Run 42169923328 completed failure (JsonSchemaBuilder source dir); fixed by c98b824 (superseded, reverted by 236db32).
+Commit SHA: 236db32 (latest)
 Status: awaiting active runs. No workflow_dispatch.
 
 ## Fixes Applied
@@ -58,3 +57,4 @@ Status: awaiting active runs. No workflow_dispatch.
 - 42147858736 (failure at 5dde57a, pre-gpu-aml-fix; superseded by ba569c6)
 - 42156172108 (failure, fixed by 7c3b072 - JsonSchemaBuilder PKG_TOOLCHAIN=cmake)
 - 42169923328 (failure, fixed by c98b824 - JsonSchemaBuilder PKG_CMAKE_SCRIPT own build dir)
+- 42169943705 (failure, fixed by 236db32 - JsonSchemaBuilder:host revert to MEDIACENTER build dir)
