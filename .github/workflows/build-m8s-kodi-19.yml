@@ -7,9 +7,6 @@ on:
         description: 'Custom version string'
         required: false
         default: '3.3.3-baseline'
-  push:
-    branches:
-      - kodi-19.4-m8s
 
 permissions:
   contents: read
