@@ -4,9 +4,9 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42122357965 completed failure at 8fbd3f3 (_STAT_VER patch did not apply). Fixed by 1c3ac55 (broader search roots). Monitoring new run.
-Commit SHA: 8fbd3f3 (latest)
-Status: new commit pushed; awaiting next run. No workflow_dispatch.
+Run ID: 42125755256 completed failure at 1c3ac55 (cpio:host multiple definition program_name). Fixed by 53b9081 (CFLAGS=-fcommon). New run pending.
+Commit SHA: 53b9081 (latest)
+Status: pushed; awaiting next run. No workflow_dispatch.
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -49,5 +49,5 @@ Status: new commit pushed; awaiting next run. No workflow_dispatch.
 - 42110547576 (failure at e05c1ca, pre-squashfs-fix; superseded by 42116110250)
 - 42100244040 (cancelled, 643c1ae)
 - 42116110250 (failure, fixed by 8fbd3f3 - fakeroot source patch via find)
-- 42122357965 (failure, fixed by 1c3ac55 - broader search roots)
+- 42125755256 (failure, fixed by 53b9081 - cpio -fcommon)
 - 42100301559 (failure, fixed by b2b847d - squashfs -fcommon)
