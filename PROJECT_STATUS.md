@@ -4,7 +4,7 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42213571615 completed failure (JsonSchemaBuilder:host still present in projects/S812/packages/kodi/package.mk; fix 6b054ef only touched packages/mediacenter template). Fixed by 6829f8a (removed dep from S812 project kodi). Dispatched run 42221310737 to verify 6829f8a. Commit SHA: 6829f8a (latest)
+Run ID: 42221310737 completed failure (TexturePacker:host toolchain auto-detect: "Not possible to detect toolchain automatically"). Fixed by ccc22ec (PKG_TOOLCHAIN=cmake added). Commit SHA: ccc22ec (latest)
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -58,3 +58,4 @@ Run ID: 42213571615 completed failure (JsonSchemaBuilder:host still present in p
 - 42169943705 (failure, fixed by 236db32 - JsonSchemaBuilder:host revert to MEDIACENTER build dir)
 - 42178931409 (failure - JsonSchemaBuilder:host source dir absent, superseded by 6b054ef)
 - 42213571615 (failure, fixed by 6829f8a - JsonSchemaBuilder:host in S812 project kodi)
+- 42221310737 (failure, fixed by ccc22ec - TexturePacker PKG_TOOLCHAIN=cmake)
