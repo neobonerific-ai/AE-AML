@@ -4,9 +4,9 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42169943705 completed failure at 47d3cf4 (JsonSchemaBuilder:host wrong build dir PKG_NAME). Fix pushed 236db32 (revert to MEDIACENTER build dir). Active runs: 42189276378 in_progress (sha 1f8d156). Run 42178931409 completed failure (sha ae2a042, JsonSchemaBuilder:host missing source dir). Cancelled: 42189254389 (236db32), 42178918000 (c98b824). Run 42169923328 completed failure (JsonSchemaBuilder source dir); fixed by c98b824 (superseded, reverted by 236db32).
-Commit SHA: 1f8d156 (latest)
-Status: awaiting active runs. No workflow_dispatch.
+Run ID: 42189276378 completed failure at 1f8d156 (JsonSchemaBuilder:host missing source dir). Fixed by 6b054ef (removed JsonSchemaBuilder:host dependency; kodi builds it internally). Cancelled: 42189254389 (236db32), 42178918000 (c98b824), 42199162794 (8f80723). Run 42178931409 completed failure (sha ae2a042, same root cause, superseded by 6b054ef). Run 42169943705 completed failure at 47d3cf4 (JsonSchemaBuilder:host wrong build dir PKG_NAME); fixed by 236db32 then superseded by 6b054ef.
+Commit SHA: 6b054ef (latest)
+Status: no in-progress runs; dispatching workflow to verify 6b054ef fix.
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -58,4 +58,5 @@ Status: awaiting active runs. No workflow_dispatch.
 - 42156172108 (failure, fixed by 7c3b072 - JsonSchemaBuilder PKG_TOOLCHAIN=cmake)
 - 42169923328 (failure, fixed by c98b824 - JsonSchemaBuilder PKG_CMAKE_SCRIPT own build dir)
 - 42169943705 (failure, fixed by 236db32 - JsonSchemaBuilder:host revert to MEDIACENTER build dir)
-- 42178931409 (failure - JsonSchemaBuilder:host source dir absent in both MEDIACENTER and PKG_NAME build dirs; root cause unconfirmed)
+- 42178931409 (failure - JsonSchemaBuilder:host source dir absent, superseded by 6b054ef)
+- 42189276378 (failure, fixed by 6b054ef - removed JsonSchemaBuilder:host dependency)
