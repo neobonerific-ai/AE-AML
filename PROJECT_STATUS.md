@@ -4,7 +4,7 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42471939790 completed failure (glib:host CFLAGS using target ARM flags on x86_64 host configure). Fixed by edb9166 (HOST_CFLAGS). Commit SHA: edb9166 (latest)
+Run ID: 42471939790 completed failure (glib:host CFLAGS using target ARM flags on x86_64 host configure). Fixed by edb9166 (HOST_CFLAGS). Fix commit: edb9166; HEAD now 845b585 (glib:host HOST_CFLAGS refinement).
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -21,7 +21,7 @@ Run ID: 42471939790 completed failure (glib:host CFLAGS using target ARM flags o
 - glib:host disable format-overflow error (modern gcc)
 
 ## Open Tasks
-- Monitor current run (push from 186c0e8); identify next failure if any.
+- Monitor run 42532438850 (845b585, in_progress): warten laut AGENTS.md (in_progress → nichts ändern, kein Build auslösen), bei Abschluss auswerten.
 - Complete baseline image build + artifacts + checksums.
 
 ## Processed Runs
