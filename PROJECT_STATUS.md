@@ -4,7 +4,7 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42221310737 completed failure (TexturePacker:host toolchain auto-detect: "Not possible to detect toolchain automatically"). Fixed by ccc22ec (PKG_TOOLCHAIN=cmake added). Commit SHA: ccc22ec (latest)
+Run ID: 42471939790 completed failure (glib:host CFLAGS using target ARM flags on x86_64 host configure). Fixed by edb9166 (HOST_CFLAGS). Commit SHA: edb9166 (latest)
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -18,6 +18,7 @@ Run ID: 42221310737 completed failure (TexturePacker:host toolchain auto-detect:
 - libcap:host URL (kernel.org 404 → mirrors.edge.kernel.org)
 - fakeroot:host _STAT_VER=0 for modern glibc
 - nss:host disable return-local-addr error (modern gcc)
+- glib:host disable format-overflow error (modern gcc)
 
 ## Open Tasks
 - Monitor current run (push from 186c0e8); identify next failure if any.
@@ -58,4 +59,4 @@ Run ID: 42221310737 completed failure (TexturePacker:host toolchain auto-detect:
 - 42169943705 (failure, fixed by 236db32 - JsonSchemaBuilder:host revert to MEDIACENTER build dir)
 - 42178931409 (failure - JsonSchemaBuilder:host source dir absent, superseded by 6b054ef)
 - 42213571615 (failure, fixed by 6829f8a - JsonSchemaBuilder:host in S812 project kodi)
-- 42221310737 (failure, fixed by ccc22ec - TexturePacker PKG_TOOLCHAIN=cmake)
+- 42471939790 (failure, fixed by edb9166 - glib:host HOST_CFLAGS)
