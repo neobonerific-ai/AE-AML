@@ -14,7 +14,7 @@ PKG_LONGDESC="A library which includes support routines for C such as lists, tre
 PKG_TOOLCHAIN="autotools"
 
 PKG_CONFIGURE_OPTS_HOST="PCRE_LIBS=-l:libpcre.a \
-                         CFLAGS=\"$CFLAGS -Wno-error=format-overflow\" \
+                         CFLAGS=\"$HOST_CFLAGS -Wno-error=format-overflow\" \
                          --enable-static \
                          --disable-shared \
                          --disable-libmount \
