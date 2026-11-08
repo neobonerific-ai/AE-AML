@@ -14,11 +14,20 @@ PKG_LONGDESC="A library which includes support routines for C such as lists, tre
 PKG_TOOLCHAIN="autotools"
 
 PKG_CONFIGURE_OPTS_HOST="PCRE_LIBS=-l:libpcre.a \
-                         CFLAGS=\"-march=native -O2 -Wall -pipe -I$TOOLCHAIN/include -Wno-format-security -Wno-error=format-overflow\" \
                          --enable-static \
                          --disable-shared \
                          --disable-libmount \
                          --with-python=python"
+
+# glib:host needs explicit host CFLAGS (avoid target -mtune=cortex-a9 leak on
+# x86_64 hosts) plus modern-gcc tolerances. CFLAGS must be exported as an
+# environment variable, NOT passed as a configure argument: scripts/build
+# expands $PKG_CONFIGURE_OPTS_HOST unquoted (scripts/build:304), so a
+# multi-word CFLAGS=... is word-split and -O2/-Wall/... reach configure as
+# unknown flags ("unrecognized option: -O2").
+pre_configure_host() {
+  export CFLAGS="-march=native -O2 -Wall -pipe -I$TOOLCHAIN/include -Wno-format-security -Wno-error=format-overflow"
+}
 PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_snprintf_c99=yes \
                            ac_cv_func_vsnprintf_c99=yes \
                            glib_cv_stack_grows=no \

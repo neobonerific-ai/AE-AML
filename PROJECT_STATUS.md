@@ -4,7 +4,9 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42471939790 completed failure (glib:host CFLAGS using target ARM flags on x86_64 host configure). Fixed by edb9166 (HOST_CFLAGS). Fix commit: edb9166; HEAD now 845b585 (glib:host HOST_CFLAGS refinement).
+Run ID: 42532438850 completed failure (845b585, glib:host HOST_CFLAGS refinement).
+Ursache: glib:host configure schlug fehl mit `configure: error: unrecognized option: '-O2'`. Die mehrzeilige CFLAGS in PKG_CONFIGURE_OPTS_HOST wurde durch unquoted $PKG_CONFIGURE_OPTS_HOST in scripts/build:304 wortzerlegt, sodass -O2/-Wall/... als unbekannte configure-Flags ankamen.
+Fix: CFLAGS wird nun vor dem configure-Aufruf ueber pre_configure_host() als Umgebungsvariable exportiert (kanonischer Autotools-Weg) und nicht mehr als configure-Argument uebergeben. Explicite Host-CFLAGS (-march=native -O2 -Wall -pipe -I$TOOLCHAIN/include -Wno-format-security -Wno-error=format-overflow) bleiben erhalten. Fix committet und gepusht; Verifizierungs-Run via workflow_dispatch ausgeloest.
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -15,13 +17,17 @@ Run ID: 42471939790 completed failure (glib:host CFLAGS using target ARM flags o
 - binutils gold narrowing conversion (pr_type)
 - binutils gold patch: correct hunk headers and context
 - Workflow: concurrency, diagnostic logs, output verification, log filename sanitization
-- libcap:host URL (kernel.org 404 → mirrors.edge.kernel.org)
+- libcap:host URL (kernel.org 404 -> mirrors.edge.kernel.org)
 - fakeroot:host _STAT_VER=0 for modern glibc
 - nss:host disable return-local-addr error (modern gcc)
 - glib:host disable format-overflow error (modern gcc)
+- glib:host explicit host CFLAGS via pre_configure_host() export (vermeidet Wortzerlegung durch unquoted PKG_CONFIGURE_OPTS_HOST)
+- ccache: key ohne github.sha (Cache-Wiederverwendung zwischen Builds)
+- kodi: JsonSchemaBuilder:host entfernt (interner Kodi-Build)
+- kodi: TexturePacker:host entfernt (interner Kodi-Build)
 
 ## Open Tasks
-- Monitor run 42532438850 (845b585, in_progress): warten laut AGENTS.md (in_progress → nichts ändern, kein Build auslösen), bei Abschluss auswerten.
+- Abwarten des Verifizierungs-Runs (workflow_dispatch) mit dem Fix; bei Erfolg: Build-Artefakte (.img.gz, .tar) + SHA256SUMS prüfen, Baseline abgeschlossen.
 - Complete baseline image build + artifacts + checksums.
 
 ## Processed Runs
@@ -60,3 +66,4 @@ Run ID: 42471939790 completed failure (glib:host CFLAGS using target ARM flags o
 - 42178931409 (failure - JsonSchemaBuilder:host source dir absent, superseded by 6b054ef)
 - 42213571615 (failure, fixed by 6829f8a - JsonSchemaBuilder:host in S812 project kodi)
 - 42471939790 (failure, fixed by edb9166 - glib:host HOST_CFLAGS)
+- 42532438850 (failure at 845b585, glib:host CFLAGS word-splitting; fixed by glib:host export CFLAGS via pre_configure_host)
