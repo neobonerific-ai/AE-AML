@@ -8,7 +8,7 @@ Run ID: 42544469404 completed failure (44d71ba, libgpg-error gawk `namespace` bu
 Run ID: 42552793592 completed failure (169793b, kodi source SHA256 mismatch) — processed.
 Run ID: 42563032671 completed failure (0f8f77f, kodi CMake configure) — processed, fixed by b627262.
 Ursache 42563032671: Patch kodi-100.25-hack-fix-texture-packer-cmake-source-dir.patch setzt in kodi's tools/depends/native/TexturePacker/CMakeLists.txt `set(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/../../../..)`. Geschrieben fuer TexturPacker:host als Standalone-Paket; jetzt baut kodi TexturePacker intern (find_package -> add_subdirectory), CMAKE_SOURCE_DIR ist bereits die Kodi-Root. Der Hack laeuft 4 Ebenen zu weit hoch -> /home/runner/work, also fehlt /home/runner/work/xbmc/guilib/XBTF.cpp -> CMake-Fehler -> BUILD FAILED kodi -> gesamtes Image-Build fehlgeschlagen. SHA256-Pruefung aktiv, Kodi-Version unveraendert, keine DTB/kernel/Python/libamcodec-Aenderungen.
-Fix: Commit b627262 entfernt obsoleten Patch, gepusht nach kodi-19.4-m8s (b6272621d6f2c725be70d0716acb825d91725874). Push löst keinen Run aus (workflow_dispatch-only). Verifizierungs-Run **42574183011** bei b627262 completed failure: kodi build fails at generate_json_header — 'JsonSchemaBuilder::JsonSchemaBuilder: not found'. Ursache: nach Entfernung von JsonSchemaBuilder:host (6829f8a) baut kodi JsonSchemaBuilder intern (ALIAS Target), aber xbmc/interfaces/json-rpc/schema/CMakeLists.txt ruft es per bare COMMAND-Name auf, den CMake für ALIAS nicht auf den Executable-Pfad auflöst. Fix: Commit f4419b2, Patch kodi-100.27-fix-jsonschemabuilder-command.patch (COMMAND $<TARGET_FILE:JsonSchemaBuilder>), gepusht nach kodi-19.4-m8s. Verifizierungs-Run **42587355252** bei f4419b2 ausgeloest (workflow_dispatch).
+Fix: Commit b627262 entfernt obsoleten Patch, gepusht nach kodi-19.4-m8s (b6272621d6f2c725be70d0716acb825d91725874). Push löst keinen Run aus (workflow_dispatch-only). Verifizierungs-Run **42574183011** bei b627262 completed failure: kodi build fails at generate_json_header — 'JsonSchemaBuilder::JsonSchemaBuilder: not found'. Ursache: nach Entfernung von JsonSchemaBuilder:host (6829f8a) baut kodi JsonSchemaBuilder intern (ALIAS Target), aber xbmc/interfaces/json-rpc/schema/CMakeLists.txt ruft es per bare COMMAND-Name auf, den CMake für ALIAS nicht auf den Executable-Pfad auflöst. Fix: Commit f4419b2, Patch kodi-100.27-fix-jsonschemabuilder-command.patch (COMMAND $<TARGET_FILE:JsonSchemaBuilder>), gepusht nach kodi-19.4-m8s. Verifizierungs-Run **42587355252** bei f4419b2 completed failure: 'Exec format error' (JsonSchemaBuilder als ARM-Binary gebaut, laeuft nicht auf dem x86_64-Builder). Root Cause identifiziert, Fix: Commit 48c3591 baut JsonSchemaBuilder als Host-Tool nach $TOOLCHAIN/bin/JsonSchemaBuilder + -DWITH_JSONSCHEMABUILDER=$TOOLCHAIN/bin (wie flatbuffers:host -> flatc), gepusht nach kodi-19.4-m8s. Neuer Verifizierungs-Run **42599919808** bei 48c3591 per workflow_dispatch ausgeloest.
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -32,13 +32,14 @@ Fix: Commit b627262 entfernt obsoleten Patch, gepusht nach kodi-19.4-m8s (b62726
 
 ## Open Tasks
 - Verifizierungs-Run 42544469404 (44d71ba) completed failure: libgpg-error gawk `namespace`, fixed by 169793b.
-- Verifizierungs-Run 42574183011 (b627262) completed failure (kodi generate_json_header: JsonSchemaBuilder::JsonSchemaBuilder not found); fixed by f4419b2 (patch kodi-100.27-fix-jsonschemabuilder-command.patch). Neuer Verifizierungs-Run 42587355252 (f4419b2) dispatched (workflow_dispatch). Naechster Zyklus: Run auswerten, bei Erfolg Baseline abschliessen (Artefakte + SHA256SUMS pruefen).
+- Verifizierungs-Run 42587355252 (f4419b2) completed failure (Exec format error: JsonSchemaBuilder als ARM-Binary); fixed by 48c3591 (host JsonSchemaBuilder + -DWITH_JSONSCHEMABUILDER). Neuer Verifizierungs-Run 42599919808 (48c3591) dispatched (workflow_dispatch). Naechster Zyklus: Run 42599919808 auswerten, bei Erfolg Baseline abschliessen (Artefakte + SHA256SUMS pruefen).
 - Complete baseline image build + artifacts + checksums.
 
 ## Processed Runs
 - 41951664521 (deps)
 - 42563032671 (failure at kodi TexturePacker CMAKE_SOURCE_DIR hack patch; fixed by b627262)
 - 42574183011 (failure at kodi generate_json_header: JsonSchemaBuilder::JsonSchemaBuilder not found; fixed by f4419b2, verification run 42587355252 dispatched)
+- 42587355252 (failure: Exec format error, JsonSchemaBuilder als ARM-Binary nicht ausfuehrbar auf dem x86_64-Builder; fixed by 48c3591 host-JsonSchemaBuilder + -DWITH_JSONSCHEMABUILDER, verification run 42599919808 dispatched)
 - 41952487939 / 41952494598 (make)
 - 42013162205 (m4)
 - 42023886447 (linux/binutils) in progress
