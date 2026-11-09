@@ -25,9 +25,10 @@ Fix: CFLAGS wird nun vor dem configure-Aufruf ueber pre_configure_host() als Umg
 - ccache: key ohne github.sha (Cache-Wiederverwendung zwischen Builds)
 - kodi: JsonSchemaBuilder:host entfernt (interner Kodi-Build)
 - kodi: TexturePacker:host entfernt (interner Kodi-Build)
+- curl: --with-libssh2 entfernt (libssh2 nicht im Build-Baum / nicht als Dependenz; configure-Fehler libSSH2 not found)
 
 ## Open Tasks
-- Abwarten des Verifizierungs-Runs (workflow_dispatch) mit dem Fix; bei Erfolg: Build-Artefakte (.img.gz, .tar) + SHA256SUMS prüfen, Baseline abgeschlossen.
+- Verifizierungs-Run 42536833978 (workflow_dispatch, Fix 90646b8 bei glib:host CFLAGS-Export) ist **completed failure** bei 90646b8 — Build kam bis curl durch (glib:host- und samba-Bau OK, voriger Fix wirkt). Neuer Root Cause: curl configure schlägt fehl mit `configure: error: libSSH2 libs and/or directories were not found where specified!`; `--with-libssh2` steht in `packages/web/curl/package.mk`, aber libssh2 ist weder als `PKG_DEPENDS_TARGET` deklariert noch im Haupt-Paketbaum vorhanden (nur im Addon-Baum). Minimaler Fix: `--with-libssh2` aus `PKG_CONFIGURE_OPTS_TARGET` entfernt (curl baut ohne scp/sftp; HTTP/HTTPS/FTP unbetroffen). Fix committet, Push löst nächsten Run aus. Nächster Zyklus: neuen Run-Status auswerten.
 - Complete baseline image build + artifacts + checksums.
 
 ## Processed Runs
@@ -67,3 +68,4 @@ Fix: CFLAGS wird nun vor dem configure-Aufruf ueber pre_configure_host() als Umg
 - 42213571615 (failure, fixed by 6829f8a - JsonSchemaBuilder:host in S812 project kodi)
 - 42471939790 (failure, fixed by edb9166 - glib:host HOST_CFLAGS)
 - 42532438850 (failure at 845b585, glib:host CFLAGS word-splitting; fixed by glib:host export CFLAGS via pre_configure_host)
+- 42536833978 (failure at 90646b8, curl --with-libssh2 without libssh2 dep; fixed by removing --with-libssh2)
