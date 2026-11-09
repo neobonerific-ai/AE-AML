@@ -4,8 +4,13 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42544469404 completed failure (44d71ba, libgpg-error gawk `namespace` builtin) — processed.
+Run ID: 42684868561 in_progress (commit eee67e7, workflow_dispatch, gestartet 19:35 CET) — fix: sed commands in TexturePacker package.mk pre_configure_host() replace ${CMAKE_SOURCE_DIR}/xbmc paths.
+
+Run ID: 42675065787 completed failure (aae4970) — processed. Fix: sed commands in packages/mediacenter/TexturePacker/package.mk pre_configure_host(). New verification run 42684868561 dispatched after push.
+
+Run ID: 42658843775 completed failure (2f987c8) — processed.
 Run ID: 42552793592 completed failure (169793b, kodi source SHA256 mismatch) — processed.
+Run ID: 42544469404 completed failure (44d71ba, libgpg-error gawk `namespace` builtin) — processed.
 Run ID: 42641596480 completed failure (e9ad15c, TexturePacker:host cmake configure fails at find_package(Lzo2) — kodi's FindLzo2.cmake/FindGIF.cmake in cmake/modules not on standalone host build's CMAKE_MODULE_PATH), fixed by 2f987c8.
 Run ID: 42563032671 completed failure (0f8f77f, kodi CMake configure) — processed, fixed by b627262.
 Ursache 42563032671: Patch kodi-100.25-hack-fix-texture-packer-cmake-source-dir.patch setzt in kodi's tools/depends/native/TexturePacker/CMakeLists.txt `set(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/../../../..)`. Geschrieben fuer TexturPacker:host als Standalone-Paket; jetzt baut kodi TexturePacker intern (find_package -> add_subdirectory), CMAKE_SOURCE_DIR ist bereits die Kodi-Root. Der Hack laeuft 4 Ebenen zu weit hoch -> /home/runner/work, also fehlt /home/runner/work/xbmc/guilib/XBTF.cpp -> CMake-Fehler -> BUILD FAILED kodi -> gesamtes Image-Build fehlgeschlagen. SHA256-Pruefung aktiv, Kodi-Version unveraendert, keine DTB/kernel/Python/libamcodec-Aenderungen.
