@@ -4,9 +4,11 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42684868561 in_progress (commit eee67e7, workflow_dispatch, gestartet 19:35 CET) — fix: sed commands in TexturePacker package.mk pre_configure_host() replace ${CMAKE_SOURCE_DIR}/xbmc paths.
+Run ID: 42684868561 completed failure (commit eee67e7, workflow_dispatch) — kodi build aborted: patch kodi-100.29-fix-texturepacker-host-source-paths.patch is malformed for kodi commit 2e454a7 (single-space indentation), 'patch: **** malformed patch at line 11' aborts the build before the sed fix can run.
+Root cause: kodi-100.29 patch does not apply; the same TexturePacker:host source-path fix is already applied by sed in packages/mediacenter/TexturePacker/package.mk pre_configure_host().
+Fix: removed the broken kodi-100.29 patch (projects/S812/packages/kodi/patches/). New verification run dispatched after push.
 
-Run ID: 42675065787 completed failure (aae4970) — processed. Fix: sed commands in packages/mediacenter/TexturePacker/package.mk pre_configure_host(). New verification run 42684868561 dispatched after push.
+Run ID: 42675065787 completed failure (aae4970) — processed. Fix: sed commands in packages/mediacenter/TexturePacker/package.mk pre_configure_host().
 
 Run ID: 42658843775 completed failure (2f987c8) — processed.
 Run ID: 42552793592 completed failure (169793b, kodi source SHA256 mismatch) — processed.
@@ -53,6 +55,7 @@ Fix: Commit b627262 entfernt obsoleten Patch, gepusht nach kodi-19.4-m8s (b62726
 - 42641596480 (completed failure: TexturePacker:host cmake configure fails at find_package(Lzo2) — kodi's FindLzo2.cmake/FindGIF.cmake in cmake/modules not on standalone host build's CMAKE_MODULE_PATH; fixed by 2f987c8 PKG_CMAKE_OPTS_HOST += -DCMAKE_MODULE_PATH=$(get_build_dir $MEDIACENTER)/cmake/modules, new verification run 42658843775 dispatched at 2f987c8)
 - 42658843775 (completed failure: TexturePacker:host add_executable 'No SOURCES given to target: TexturePacker' — '${CMAKE_SOURCE_DIR}/xbmc/guilib/XBTF.cpp' not found, paths relative to TexturePacker subdir instead of kodi root; fixed by kodi-100.29-fix-texturepacker-host-source-paths.patch (CMAKE_CURRENT_SOURCE_DIR/../../../../ = kodi root), verification dispatched after push)
 - 42675065787 (completed failure at commit aae4970: TexturePacker:host still fails with same 'Cannot find source file .../TexturePacker/xbmc/guilib/XBTF.cpp' error. Root Cause: kodi-100.29 patch was written for 12-space indentation (kodi 18.3-Leia) but kodi commit 2e454a7 (used by Amlogic project) uses single-space indentation in TexturePacker/CMakeLists.txt, so patch fails to apply silently (patch exit code not checked). Fix: sed commands in packages/mediacenter/TexturePacker/package.mk pre_configure_host() replace ${CMAKE_SOURCE_DIR}/xbmc paths with ${CMAKE_CURRENT_SOURCE_DIR}/../../../../xbmc — guaranteed to work regardless of indentation. Committed and pushed; new verification run dispatched.)
+- 42684868561 (completed failure at eee67e7: kodi aborted by malformed kodi-100.29 patch; fixed by removing the broken patch — TexturePacker:host sed in pre_configure_host() already applies the same path fix. Verification run dispatched after push.)
 - 41952487939 / 41952494598 (make)
 - 42013162205 (m4)
 - 42023886447 (linux/binutils) in progress
