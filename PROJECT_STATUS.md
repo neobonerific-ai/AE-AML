@@ -4,9 +4,9 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42684868561 completed failure (commit eee67e7, workflow_dispatch) — kodi build aborted: patch kodi-100.29-fix-texturepacker-host-source-paths.patch is malformed for kodi commit 2e454a7 (single-space indentation), 'patch: **** malformed patch at line 11' aborts the build before the sed fix can run.
-Root cause: kodi-100.29 patch does not apply; the same TexturePacker:host source-path fix is already applied by sed in packages/mediacenter/TexturePacker/package.mk pre_configure_host().
-Fix: removed the broken kodi-100.29 patch (projects/S812/packages/kodi/patches/). New verification run 42703988908 dispatched via workflow_dispatch (commit 5a08b2d), running.
+Run ID: 42703988908 completed failure (commit 5a08b2d, workflow_dispatch) — kodi und TexturePacker:host bauen diesmal erfolgreich; Build scheitert an AlexELEC-settings: SHA256-Mismatch des Upstream-Archivs da2a1b7.tar.gz (CI downloaded hash b6d5fbf0..., eingetragen 7f8b6153...; sources.libreelec.tv-Mirror liefert 404).
+Root cause: PKG_SHA256 in packages/mediacenter/AlexELEC-settings/package.mk ist veraltet (Upstream tarball re-rolled; package.mk unberührt seit 2020, Commit 2636afe).
+Fix: PKG_SHA256 auf tatsächlichen Upstream-Hash b6d5fbf0dc52799f1eec8ecc3f8daacc08c46460d6ff550aca7fe3a4263e6ca8 aktualisiert (Commit 8889e6b, lokal am Original-URL verifiziert: 494.886 Byte, identischer Hash). SHA256-Verifizierung bleibt aktiv. Keine Kodi-, Python-, DTB-, Kernel- oder libamcodec-Änderungen. Verifizierungs-Run 42723811658 bei 8889e6b per workflow_dispatch ausgelöst.
 
 Run ID: 42675065787 completed failure (aae4970) — processed. Fix: sed commands in packages/mediacenter/TexturePacker/package.mk pre_configure_host().
 
@@ -56,6 +56,7 @@ Fix: Commit b627262 entfernt obsoleten Patch, gepusht nach kodi-19.4-m8s (b62726
 - 42658843775 (completed failure: TexturePacker:host add_executable 'No SOURCES given to target: TexturePacker' — '${CMAKE_SOURCE_DIR}/xbmc/guilib/XBTF.cpp' not found, paths relative to TexturePacker subdir instead of kodi root; fixed by kodi-100.29-fix-texturepacker-host-source-paths.patch (CMAKE_CURRENT_SOURCE_DIR/../../../../ = kodi root), verification dispatched after push)
 - 42675065787 (completed failure at commit aae4970: TexturePacker:host still fails with same 'Cannot find source file .../TexturePacker/xbmc/guilib/XBTF.cpp' error. Root Cause: kodi-100.29 patch was written for 12-space indentation (kodi 18.3-Leia) but kodi commit 2e454a7 (used by Amlogic project) uses single-space indentation in TexturePacker/CMakeLists.txt, so patch fails to apply silently (patch exit code not checked). Fix: sed commands in packages/mediacenter/TexturePacker/package.mk pre_configure_host() replace ${CMAKE_SOURCE_DIR}/xbmc paths with ${CMAKE_CURRENT_SOURCE_DIR}/../../../../xbmc — guaranteed to work regardless of indentation. Committed and pushed; new verification run dispatched.)
 - 42684868561 (completed failure at eee67e7: kodi aborted by malformed kodi-100.29 patch; fixed by removing the broken patch — TexturePacker:host sed in pre_configure_host() already applies the same path fix. Verification run dispatched after push.)
+- 42703988908 (completed failure at 5a08b2d: kodi + TexturePacker:host OK; AlexELEC-settings SHA256 mismatch on upstream tarball da2a1b7.tar.gz; fixed by 8889e6b updating PKG_SHA256 to b6d5fb...; verification run 42723811658 dispatched at 8889e6b)
 - 41952487939 / 41952494598 (make)
 - 42013162205 (m4)
 - 42023886447 (linux/binutils) in progress
