@@ -13,7 +13,12 @@ PKG_LONGDESC="kodi-platform:"
 PKG_TOOLCHAIN="cmake"
 PKG_CMAKE_SCRIPT="$(get_build_dir $MEDIACENTER)/tools/depends/native/TexturePacker/CMakeLists.txt"
 
-PKG_CMAKE_OPTS_HOST="-Wno-dev"
+# TexturePacker's CMakeLists.txt calls find_package(Lzo2/GIF). Those
+# find-modules live in kodi's cmake/modules, not in TexturePacker's own
+# tree, so the standalone host build fails to resolve lzo/gif
+# (find_package(Lzo2) error). Point CMAKE_MODULE_PATH at kodi's
+# cmake/modules; png/jpeg are resolved by CMake's built-in find-modules.
+PKG_CMAKE_OPTS_HOST="-DCMAKE_MODULE_PATH=$(get_build_dir $MEDIACENTER)/cmake/modules -Wno-dev"
 
 pre_configure_host() {
   export CXXFLAGS="$CXXFLAGS -std=c++11 -DTARGET_POSIX -DTARGET_LINUX -D_LINUX -I$(get_build_dir $MEDIACENTER)/xbmc/platform/linux"
