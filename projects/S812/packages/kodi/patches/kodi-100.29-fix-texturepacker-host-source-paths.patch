@@ -1,0 +1,24 @@
+--- a/tools/depends/native/TexturePacker/CMakeLists.txt
++++ b/tools/depends/native/TexturePacker/CMakeLists.txt
+@@ -33,8 +33,8 @@
+ set(SOURCES src/md5.cpp
+             src/DecoderManager.cpp
+             src/TexturePacker.cpp
+             src/XBTFWriter.cpp
+             src/decoder/GIFDecoder.cpp
+             src/decoder/GifHelper.cpp
+             src/decoder/JPGDecoder.cpp
+             src/decoder/PNGDecoder.cpp
+-            ${CMAKE_SOURCE_DIR}/xbmc/guilib/XBTF.cpp)
++            ${CMAKE_CURRENT_SOURCE_DIR}/../../../../xbmc/guilib/XBTF.cpp)
+
+ set(CMAKE_POSITITION_INDEPENDENT_CODE 1)
+@@ -46,7 +46,7 @@
+ target_include_directories(TexturePacker
+                            PRIVATE ${PNG_INCLUDE_DIRS}
+                                     ${JPEG_INCLUDE_DIR}
+                                     ${GIF_INCLUDE_DIR}
+-                                    ${CMAKE_SOURCE_DIR}/xbmc
++                                    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../xbmc
+                                     ${CMAKE_CURRENT_SOURCE_DIR}/src
+                                     ${CMAKE_CURRENT_SOURCE_DIR}/src/decoder)
