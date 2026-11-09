@@ -6,8 +6,9 @@ Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 ## Last Run
 Run ID: 42544469404 completed failure (44d71ba, libgpg-error gawk `namespace` builtin) — processed.
 Run ID: 42552793592 completed failure (169793b, kodi source SHA256 mismatch) — processed.
-Ursache: libgpg-error gawk-`namespace` bereits behoben (169793b wirkt). Neuer Root Cause: kodi-Quelle `https://github.com/xbmc/xbmc/archive/2e454a7.tar.gz` wird geladen, aber SHA256 stimmt nicht: geladenes Archiv hasht auf `4d57bad9...`, package.mk erwartet veralteten Wert `636a83cf...` (verifiziert via `gh run view`-Log + lokaler `sha256sum` vom offiziellen codeload-Mirror; SHA256-Pruefung bleibt aktiv, Kodi-Version unveraendert).
-Fix: Commit `0f8f77f` setzt PKG_SHA256 in projects/S812/packages/kodi/package.mk auf verifizierten Wert `4d57bad9...`, gepusht nach kodi-19.4-m8s. Workflow hat nur workflow_dispatch (kein push-Trigger): Verifizierungs-Run **42563032671** bei `0f8f77f` ausgeloest, laeuft.
+Run ID: 42563032671 completed failure (0f8f77f, kodi CMake configure) — processed, fixed by b627262.
+Ursache 42563032671: Patch kodi-100.25-hack-fix-texture-packer-cmake-source-dir.patch setzt in kodi's tools/depends/native/TexturePacker/CMakeLists.txt `set(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/../../../..)`. Geschrieben fuer TexturPacker:host als Standalone-Paket; jetzt baut kodi TexturePacker intern (find_package -> add_subdirectory), CMAKE_SOURCE_DIR ist bereits die Kodi-Root. Der Hack laeuft 4 Ebenen zu weit hoch -> /home/runner/work, also fehlt /home/runner/work/xbmc/guilib/XBTF.cpp -> CMake-Fehler -> BUILD FAILED kodi -> gesamtes Image-Build fehlgeschlagen. SHA256-Pruefung aktiv, Kodi-Version unveraendert, keine DTB/kernel/Python/libamcodec-Aenderungen.
+Fix: Commit b627262 entfernt obsoleten Patch, gepusht nach kodi-19.4-m8s (b6272621d6f2c725be70d0716acb825d91725874). Push loest keinen Run aus (workflow_dispatch-only). Verifizierungs-Run **42574183011** bei b627262 ausgeloest, laeuft (in_progress). Naechster Zyklus: Run 42574183011 auswerten, bei Erfolg Baseline abschliessen (Artefakte + SHA256SUMS pruefen), bei Misserfolg neue Diagnose.
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -31,11 +32,12 @@ Fix: Commit `0f8f77f` setzt PKG_SHA256 in projects/S812/packages/kodi/package.mk
 
 ## Open Tasks
 - Verifizierungs-Run 42544469404 (44d71ba) completed failure: libgpg-error gawk `namespace`, fixed by 169793b.
-- Verifizierungs-Run 42552793592 (169793b) completed failure: kodi source SHA256 mismatch, fixed by 0f8f77f (PKG_SHA256 -> verifizierter Wert `4d57bad9...`). Push loest hier keinen Run aus (workflow_dispatch-only), daher Verifizierungs-Run **42563032671** bei `0f8f77f` manuell ausgeloest, laeuft. Naechster Zyklus: Run 42563032671 auswerten, bei Erfolg Baseline abschliessen (Artefakte + SHA256SUMS pruefen), bei Misserfolg neue Diagnose.
+- Verifizierungs-Run 42574183011 (b627262, fix: entfernte TexturePacker CMAKE_SOURCE_DIR-Hack-Patch) dispatched, in_progress (workflow_dispatch, kein push-Trigger). Naechster Zyklus: Run auswerten, bei Erfolg Baseline abschliessen (Artefakte + SHA256SUMS pruefen), bei Misserfolg neue Diagnose.
 - Complete baseline image build + artifacts + checksums.
 
 ## Processed Runs
 - 41951664521 (deps)
+- 42563032671 (failure at kodi TexturePacker CMAKE_SOURCE_DIR hack patch; fixed by b627262)
 - 41952487939 / 41952494598 (make)
 - 42013162205 (m4)
 - 42023886447 (linux/binutils) in progress
