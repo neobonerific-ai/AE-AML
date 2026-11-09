@@ -4,9 +4,9 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42532438850 completed failure (845b585, glib:host HOST_CFLAGS refinement).
-Ursache: glib:host configure schlug fehl mit `configure: error: unrecognized option: '-O2'`. Die mehrzeilige CFLAGS in PKG_CONFIGURE_OPTS_HOST wurde durch unquoted $PKG_CONFIGURE_OPTS_HOST in scripts/build:304 wortzerlegt, sodass -O2/-Wall/... als unbekannte configure-Flags ankamen.
-Fix: CFLAGS wird nun vor dem configure-Aufruf ueber pre_configure_host() als Umgebungsvariable exportiert (kanonischer Autotools-Weg) und nicht mehr als configure-Argument uebergeben. Explicite Host-CFLAGS (-march=native -O2 -Wall -pipe -I$TOOLCHAIN/include -Wno-format-security -Wno-error=format-overflow) bleiben erhalten. Fix committet und gepusht; Verifizierungs-Run via workflow_dispatch ausgeloest.
+Run ID: 42544469404 completed failure (44d71ba, libgpg-error gawk `namespace` builtin).
+Ursache: Build kam bis libgpg-error durch (vorige Fixes wirken, incl. curl); libgpg-error make scheitert mit `gawk: fatal: cannot use gawk builtin 'namespace' as variable name`.
+Fix: Patch packages/security/libgpg-error/patches/0001-fix-gawk-namespace-builtin.patch als Commit `169793b` gepusht; Verifizierungs-Run **42552793592** (workflow_dispatch) bei `169793b` ausgeloest, status **in_progress**.
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -26,9 +26,10 @@ Fix: CFLAGS wird nun vor dem configure-Aufruf ueber pre_configure_host() als Umg
 - kodi: JsonSchemaBuilder:host entfernt (interner Kodi-Build)
 - kodi: TexturePacker:host entfernt (interner Kodi-Build)
 - curl: --with-libssh2 entfernt (libssh2 nicht im Build-Baum / nicht als Dependenz; configure-Fehler libSSH2 not found)
+- libgpg-error: gawk `namespace`-Builtin-Konflikt (gawk >= 5.1 reserviert `namespace`; `gawk: fatal: cannot use gawk builtin 'namespace' as variable name` bei `-v namespace=errnos_` in src/Makefile.in). Patch packages/security/libgpg-error/patches/0001-fix-gawk-namespace-builtin.patch renamed `namespace` -> `gpg_error_namespace` in mkstrtable.awk + Makefile.in. PKG_VERSION/SHA256 unverändert.
 
 ## Open Tasks
-- Verifizierungs-Run 42536833978 (workflow_dispatch, Fix 90646b8 bei glib:host CFLAGS-Export) ist **completed failure** bei 90646b8 — Build kam bis curl durch (glib:host- und samba-Bau OK, voriger Fix wirkt). Neuer Root Cause: curl configure schlägt fehl mit `configure: error: libSSH2 libs and/or directories were not found where specified!`; `--with-libssh2` steht in `packages/web/curl/package.mk`, aber libssh2 ist weder als `PKG_DEPENDS_TARGET` deklariert noch im Haupt-Paketbaum vorhanden (nur im Addon-Baum). Minimaler Fix: `--with-libssh2` aus `PKG_CONFIGURE_OPTS_TARGET` entfernt (curl baut ohne scp/sftp; HTTP/HTTPS/FTP unbetroffen). Fix als 44d71ba committet und gepusht; **Verifizierungs-Run 42544469404 (workflow_dispatch) bei 44d71ba ausgelöst** — nächster Zyklus: Run-Status auswerten, bei Erfolg Artefakte (.img.gz, .tar) + SHA256SUMS prüfen, bei Misserfolg neue Diagnose.
+- Verifizierungs-Run 42544469404 (workflow_dispatch, Fix 44d71ba curl --with-libssh2) ist **completed failure** bei 44d71ba — Build kam über curl durch (curl-Fix wirkt), neuer Root Cause: libgpg-error make scheitert mit `gawk: fatal: cannot use gawk builtin 'namespace' as variable name` (gawk >= 5.1 auf dem Runner; libgpg-error 1.35 übergibt `-v namespace=errnos_`). Minimaler Fix: Patch packages/security/libgpg-error/patches/0001-fix-gawk-namespace-builtin.patch (`namespace` -> `gpg_error_namespace`; SHA256/Version unverändert) als Commit `169793b` gepusht. Da der Workflow `workflow_dispatch`-nur ist: Verifizierungs-Run **42552793592** bei `169793b` manuell ausgeloest — laeuft. Naechster Zyklus: Run 42552793592 auswerten, bei Erfolg Artefakte (.img.gz, .tar) + SHA256SUMS prüfen und Baseline abschliessen, bei Misserfolg neue Diagnose.
 - Complete baseline image build + artifacts + checksums.
 
 ## Processed Runs
@@ -69,3 +70,4 @@ Fix: CFLAGS wird nun vor dem configure-Aufruf ueber pre_configure_host() als Umg
 - 42471939790 (failure, fixed by edb9166 - glib:host HOST_CFLAGS)
 - 42532438850 (failure at 845b585, glib:host CFLAGS word-splitting; fixed by glib:host export CFLAGS via pre_configure_host)
 - 42536833978 (failure at 90646b8, curl --with-libssh2 without libssh2 dep; fixed by removing --with-libssh2)
+- 42544469404 (failure at libgpg-error gawk `namespace` builtin; fixed by 169793b)
