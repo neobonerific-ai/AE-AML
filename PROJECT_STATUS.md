@@ -4,9 +4,10 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42544469404 completed failure (44d71ba, libgpg-error gawk `namespace` builtin).
-Ursache: Build kam bis libgpg-error durch (vorige Fixes wirken, incl. curl); libgpg-error make scheitert mit `gawk: fatal: cannot use gawk builtin 'namespace' as variable name`.
-Fix: Patch packages/security/libgpg-error/patches/0001-fix-gawk-namespace-builtin.patch als Commit `169793b` gepusht; Verifizierungs-Run **42552793592** (workflow_dispatch) bei `169793b` ausgeloest, status **in_progress**.
+Run ID: 42544469404 completed failure (44d71ba, libgpg-error gawk `namespace` builtin) — processed.
+Run ID: 42552793592 completed failure (169793b, kodi source SHA256 mismatch) — processed.
+Ursache: libgpg-error gawk-`namespace` bereits behoben (169793b wirkt). Neuer Root Cause: kodi-Quelle `https://github.com/xbmc/xbmc/archive/2e454a7.tar.gz` wird geladen, aber SHA256 stimmt nicht: geladenes Archiv hasht auf `4d57bad9...`, package.mk erwartet veralteten Wert `636a83cf...` (verifiziert via `gh run view`-Log + lokaler `sha256sum` vom offiziellen codeload-Mirror; SHA256-Pruefung bleibt aktiv, Kodi-Version unveraendert).
+Fix: Commit `0f8f77f` setzt PKG_SHA256 in projects/S812/packages/kodi/package.mk auf verifizierten Wert `4d57bad9...`, gepusht nach kodi-19.4-m8s. Workflow hat nur workflow_dispatch (kein push-Trigger): Verifizierungs-Run **42563032671** bei `0f8f77f` ausgeloest, laeuft.
 
 ## Fixes Applied
 - Host deps xfonts-utils, libxml-parser-perl
@@ -29,7 +30,8 @@ Fix: Patch packages/security/libgpg-error/patches/0001-fix-gawk-namespace-builti
 - libgpg-error: gawk `namespace`-Builtin-Konflikt (gawk >= 5.1 reserviert `namespace`; `gawk: fatal: cannot use gawk builtin 'namespace' as variable name` bei `-v namespace=errnos_` in src/Makefile.in). Patch packages/security/libgpg-error/patches/0001-fix-gawk-namespace-builtin.patch renamed `namespace` -> `gpg_error_namespace` in mkstrtable.awk + Makefile.in. PKG_VERSION/SHA256 unverändert.
 
 ## Open Tasks
-- Verifizierungs-Run 42544469404 (workflow_dispatch, Fix 44d71ba curl --with-libssh2) ist **completed failure** bei 44d71ba — Build kam über curl durch (curl-Fix wirkt), neuer Root Cause: libgpg-error make scheitert mit `gawk: fatal: cannot use gawk builtin 'namespace' as variable name` (gawk >= 5.1 auf dem Runner; libgpg-error 1.35 übergibt `-v namespace=errnos_`). Minimaler Fix: Patch packages/security/libgpg-error/patches/0001-fix-gawk-namespace-builtin.patch (`namespace` -> `gpg_error_namespace`; SHA256/Version unverändert) als Commit `169793b` gepusht. Da der Workflow `workflow_dispatch`-nur ist: Verifizierungs-Run **42552793592** bei `169793b` manuell ausgeloest — laeuft. Naechster Zyklus: Run 42552793592 auswerten, bei Erfolg Artefakte (.img.gz, .tar) + SHA256SUMS prüfen und Baseline abschliessen, bei Misserfolg neue Diagnose.
+- Verifizierungs-Run 42544469404 (44d71ba) completed failure: libgpg-error gawk `namespace`, fixed by 169793b.
+- Verifizierungs-Run 42552793592 (169793b) completed failure: kodi source SHA256 mismatch, fixed by 0f8f77f (PKG_SHA256 -> verifizierter Wert `4d57bad9...`). Push loest hier keinen Run aus (workflow_dispatch-only), daher Verifizierungs-Run **42563032671** bei `0f8f77f` manuell ausgeloest, laeuft. Naechster Zyklus: Run 42563032671 auswerten, bei Erfolg Baseline abschliessen (Artefakte + SHA256SUMS pruefen), bei Misserfolg neue Diagnose.
 - Complete baseline image build + artifacts + checksums.
 
 ## Processed Runs
@@ -71,3 +73,4 @@ Fix: Patch packages/security/libgpg-error/patches/0001-fix-gawk-namespace-builti
 - 42532438850 (failure at 845b585, glib:host CFLAGS word-splitting; fixed by glib:host export CFLAGS via pre_configure_host)
 - 42536833978 (failure at 90646b8, curl --with-libssh2 without libssh2 dep; fixed by removing --with-libssh2)
 - 42544469404 (failure at libgpg-error gawk `namespace` builtin; fixed by 169793b)
+- 42552793592 (failure at kodi source SHA256 mismatch; fixed by 0f8f77f, verification run 42563032671 dispatched)
