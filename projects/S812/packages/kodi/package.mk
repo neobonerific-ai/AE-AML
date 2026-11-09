@@ -190,6 +190,7 @@ configure_package() {
                -DLIBDVDREAD_URL=$SOURCES/libdvdread/libdvdread-$(get_pkg_version libdvdread).tar.gz"
 
   PKG_CMAKE_OPTS_TARGET="-DNATIVEPREFIX=$TOOLCHAIN \
+                         -DWITH_JSONSCHEMABUILDER=$TOOLCHAIN/bin \
                          -DDEPENDS_PATH=$PKG_BUILD/depends \
                          -DPYTHON_EXECUTABLE=$TOOLCHAIN/bin/$PKG_PYTHON_VERSION \
                          -DPYTHON_INCLUDE_DIRS=$SYSROOT_PREFIX/usr/include/$PKG_PYTHON_VERSION \
@@ -230,6 +231,16 @@ configure_package() {
 
 pre_configure_target() {
   export LIBS="$LIBS -lncurses"
+
+  # JsonSchemaBuilder ist ein Host-Code-Generator: er wird waehrend des
+  # Target-Cross-Builds auf dem Builder ausgefuehrt, um ServiceDescription.h zu
+  # erzeugen. Er darf nicht fuer das Target (ARM) cross-kompiliert werden - das
+  # liefert ein Binary, das auf dem x86_64-Builder nicht laeuft
+  # ("Exec format error"). Stattdessen fuer den Host bauen und in
+  # $TOOLCHAIN/bin ablegen (analog flatbuffers:host -> flatc) und kodi per
+  # WITH_JSONSCHEMABUILDER auf das Host-Binary lenken.
+  "$TOOLCHAIN/bin/host-g++" -std=c++11 -O2 -o "$TOOLCHAIN/bin/JsonSchemaBuilder" \
+    "$PKG_BUILD/tools/depends/native/JsonSchemaBuilder/src/JsonSchemaBuilder.cpp"
 }
 
 post_makeinstall_target() {
