@@ -6,7 +6,7 @@ Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 ## Last Run
 Run ID: 42684868561 completed failure (commit eee67e7, workflow_dispatch) — kodi build aborted: patch kodi-100.29-fix-texturepacker-host-source-paths.patch is malformed for kodi commit 2e454a7 (single-space indentation), 'patch: **** malformed patch at line 11' aborts the build before the sed fix can run.
 Root cause: kodi-100.29 patch does not apply; the same TexturePacker:host source-path fix is already applied by sed in packages/mediacenter/TexturePacker/package.mk pre_configure_host().
-Fix: removed the broken kodi-100.29 patch (projects/S812/packages/kodi/patches/). New verification run dispatched after push.
+Fix: removed the broken kodi-100.29 patch (projects/S812/packages/kodi/patches/). New verification run 42703988908 dispatched via workflow_dispatch (commit 5a08b2d), running.
 
 Run ID: 42675065787 completed failure (aae4970) — processed. Fix: sed commands in packages/mediacenter/TexturePacker/package.mk pre_configure_host().
 
