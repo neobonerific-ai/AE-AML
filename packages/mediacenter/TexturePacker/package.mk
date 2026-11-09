@@ -22,6 +22,15 @@ PKG_CMAKE_OPTS_HOST="-DCMAKE_MODULE_PATH=$(get_build_dir $MEDIACENTER)/cmake/mod
 
 pre_configure_host() {
   export CXXFLAGS="$CXXFLAGS -std=c++11 -DTARGET_POSIX -DTARGET_LINUX -D_LINUX -I$(get_build_dir $MEDIACENTER)/xbmc/platform/linux"
+  # Fix source/include paths in TexturePacker CMakeLists.txt for standalone host build.
+  # When built as standalone host project, CMAKE_SOURCE_DIR points to the TexturePacker
+  # subdir, not the kodi root, so add_executable fails ('Cannot find source file .../xbmc/guilib/XBTF.cpp').
+  # The kodi-100.29 patch may fail to apply due to indentation differences in the kodi
+  # commit being built; sed here guarantees the fix regardless of patch application result.
+  sed -i 's|\${CMAKE_SOURCE_DIR}/xbmc/guilib/XBTF.cpp|\${CMAKE_CURRENT_SOURCE_DIR}/../../../../xbmc/guilib/XBTF.cpp|g' \
+    $(get_build_dir $MEDIACENTER)/tools/depends/native/TexturePacker/CMakeLists.txt
+  sed -i 's|\${CMAKE_SOURCE_DIR}/xbmc|\${CMAKE_CURRENT_SOURCE_DIR}/../../../../xbmc|g' \
+    $(get_build_dir $MEDIACENTER)/tools/depends/native/TexturePacker/CMakeLists.txt
 }
 
 makeinstall_host() {
