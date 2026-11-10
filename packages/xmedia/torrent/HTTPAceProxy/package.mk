@@ -3,7 +3,7 @@
 
 PKG_NAME="HTTPAceProxy"
 PKG_VERSION="0701395"
-PKG_SHA256="e1438862a0b673610e1effa45633934ea060124db9dfa828c2a38eed0c4a3fe9"
+PKG_SHA256="30deae983efb9ad4b7bcf819cf1c1a12a9be850f4083b2b2be0a96d37331bafa"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/pepsik-kiev/HTTPAceProxy"
 PKG_URL="$PKG_SITE/archive/$PKG_VERSION.tar.gz"
