@@ -4,9 +4,9 @@
 Baseline build (AlexELEC 3.3.3 S812/M8S) in progress.
 
 ## Last Run
-Run ID: 42703988908 completed failure (commit 5a08b2d, workflow_dispatch) — kodi und TexturePacker:host bauen diesmal erfolgreich; Build scheitert an AlexELEC-settings: SHA256-Mismatch des Upstream-Archivs da2a1b7.tar.gz (CI downloaded hash b6d5fbf0..., eingetragen 7f8b6153...; sources.libreelec.tv-Mirror liefert 404).
-Root cause: PKG_SHA256 in packages/mediacenter/AlexELEC-settings/package.mk ist veraltet (Upstream tarball re-rolled; package.mk unberührt seit 2020, Commit 2636afe).
-Fix: PKG_SHA256 auf tatsächlichen Upstream-Hash b6d5fbf0dc52799f1eec8ecc3f8daacc08c46460d6ff550aca7fe3a4263e6ca8 aktualisiert (Commit 8889e6b, lokal am Original-URL verifiziert: 494.886 Byte, identischer Hash). SHA256-Verifizierung bleibt aktiv. Keine Kodi-, Python-, DTB-, Kernel- oder libamcodec-Änderungen. Verifizierungs-Run 42723811658 bei 8889e6b completed failure: dtc:host linkt nicht ('multiple definition of yylloc' mit bison 3.x). AlexELEC-settings, kodi und TexturePacker:host bauen erfolgreich. Fix: Commit da8528f, Patch packages/tools/dtc/patches/dtc-0003-fix-yylloc-multiple-definition.patch entfernt die doppelte YYLTYPE yylloc-Definition in dtc-lexer.l (bison erzeugt die einzelne Definition, lexer sieht sie via dtc-parser.tab.h als extern). Lokal mit bison 3.8.2 verifiziert: dtc+libfdt bauen sauber. Neuer Verifizierungs-Run 42740487644 bei da8528f per workflow_dispatch ausgeloest.
+Run ID: 42771592947 completed failure (commit 505b98e, workflow_dispatch) — Build kam bis Paket tvh durch (AlexELEC-settings, kodi, TexturePacker:host, dvb-apps, HTTPAceProxy bauen alle durch); gescheitert am Tvheadend-Transponder-Download: `git clone -b 'master' https://github.com/tvheadend/dtv-scan-tables.git` in post_makeinstall_target schlägt fehl ('Remote branch master not found in upstream origin').
+Root cause: Upstream-Repo tvheadend/dtv-scan-tables hat Branch 'master' entfernt; Default-Branch ist nun 'tvheadend' (verifiziert via git ls-remote + GitHub API: refs/heads/tvheadend = 31d6fb8..., master existiert nicht). package.mk Zeile 18 (tvheadend/tvheadend, weiterhin 'master') unangetastet.
+Fix: Commit e81eac8, `packages/xmedia/tvservice/tvh/package.mk`: `-b 'master'` -> `-b 'tvheadend'` (minimal, nur Branch-Ref). SHA256-Verifizierung bleibt aktiv. Keine Kodi-, Python-, DTB-, Kernel- oder libamcodec-Änderungen. Commit gepusht nach kodi-19.4-m8s. Workflow hat keinen Push-Trigger (workflow_dispatch-only) -> neuer Verifikations-Run **42790656285** per workflow_dispatch bei e81eac8 ausgeloest: https://github.com/neobonerific-ai/AE-AML/actions/runs/42790656285
 
 Run ID: 42675065787 completed failure (aae4970) — processed. Fix: sed commands in packages/mediacenter/TexturePacker/package.mk pre_configure_host().
 
@@ -98,3 +98,4 @@ Fix: Commit b627262 entfernt obsoleten Patch, gepusht nach kodi-19.4-m8s (b62726
 - 42536833978 (failure at 90646b8, curl --with-libssh2 without libssh2 dep; fixed by removing --with-libssh2)
 - 42544469404 (failure at libgpg-error gawk `namespace` builtin; fixed by 169793b)
 - 42552793592 (failure at kodi source SHA256 mismatch; fixed by 0f8f77f, verification run 42563032671 dispatched)
+- 42771592947 (completed failure at 505b98e: tvh build fails am Transponder-Download; upstream dtv-scan-tables hat Branch 'master' entfernt, Default ist 'tvheadend' (git ls-remote verifiziert: refs/heads/tvheadend = 31d6fb8...); fixed by e81eac8 package.mk -b tvheadend, gepusht nach kodi-19.4-m8s, neuer Verifikations-Run 42790656285 per workflow_dispatch ausgeloest)
