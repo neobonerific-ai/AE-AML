@@ -12,7 +12,7 @@ Run ID: 42824150600 completed success @ 4cd8028 — BASELINE BUILD ERFOLGREICH A
   - PKG_SHA256 für Kodi 19.4 verifiziert (lokal heruntergeladen + sha256sum)
   - Patches unter projects/S812/packages/kodi/patches/ auf Kodi 19 kompatibilität prüfen (nach erstem Build-Lauf)
   - Abhängigkeiten für Kodi 19 prüfen (Python 2.7 beibehalten, libamcodec unverändert, keine DTB/Kernel-Änderungen)
-  - Verifikations-Build per workflow_dispatch starten und Ergebnis auswerten
+  - Verifikations-Build per workflow_dispatch starten und Ergebnis auswerten (Run 42873769980 gestartet @ b28bf7f, läuft)
 
 ## Processed Runs
 - 41951664521 (deps)
