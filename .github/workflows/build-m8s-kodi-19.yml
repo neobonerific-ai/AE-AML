@@ -77,6 +77,10 @@ jobs:
             done
           fi
 
+      - name: Fix artifact directory permissions
+        if: always()
+        run: sudo chmod -R a+rX build.AlexELEC-S812.arm 2>/dev/null || true
+
       - name: Upload diagnostic logs
         if: always()
         uses: actions/upload-artifact@v5
