@@ -240,6 +240,12 @@ pre_configure_target() {
   # ("Exec format error"). Stattdessen fuer den Host bauen und in
   # $TOOLCHAIN/bin ablegen (analog flatbuffers:host -> flatc) und kodi per
   # WITH_JSONSCHEMABUILDER auf das Host-Binary lenken.
+  #
+  # setup_toolchain target exports CFLAGS/CXXFLAGS=$TARGET_CFLAGS (ARM target
+  # flags). host-g++ is an x86_64 host compiler and rejects those ARM options,
+  # so force host flags for the host tool compile.
+  export CFLAGS="$HOST_CFLAGS"
+  export CXXFLAGS="$HOST_CXXFLAGS"
   "$TOOLCHAIN/bin/host-g++" -std=c++11 -O2 -o "$TOOLCHAIN/bin/JsonSchemaBuilder" \
     "$PKG_BUILD/tools/depends/native/JsonSchemaBuilder/src/JsonSchemaBuilder.cpp"
 }
