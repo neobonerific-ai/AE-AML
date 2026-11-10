@@ -79,7 +79,7 @@ post_makeinstall_target() {
   echo "-----------------------------------------------------------"
   echo -e $YELLOW"****** Tvheadend: get transponder files...******"$ENDCOLOR
   echo "-----------------------------------------------------------"
-  git clone -b 'master' https://github.com/tvheadend/dtv-scan-tables.git data/dvb-scan
+  git clone -b 'tvheadend' https://github.com/tvheadend/dtv-scan-tables.git data/dvb-scan
   mkdir -p $INSTALL/usr/config/tvheadend
   mkdir -p $INSTALL/usr/config/tvheadend/dvb-scan
     cp -a data/dvb-scan/atsc $INSTALL/usr/config/tvheadend/dvb-scan
