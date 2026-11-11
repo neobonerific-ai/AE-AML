@@ -37,7 +37,7 @@ jobs:
           # (repeated 'Temporary failure resolving azure.archive.ubuntu.com' in runs
           # 43045861367 and 43054892005). Remove the Azure mirror config so apt uses
           # the standard Ubuntu archive mirrors.
-          rm -f /etc/apt/apt-mirrors.txt
+          sudo rm -f /etc/apt/apt-mirrors.txt
           sudo apt-get update -o Acquire::Retries=3
           sudo apt-get install -y --no-install-recommends \
             wget bash bc gcc sed patch patchutils tar bzip2 gzip perl gawk gperf \
