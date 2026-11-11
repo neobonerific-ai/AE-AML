@@ -32,7 +32,13 @@ jobs:
 
       - name: Install build dependencies
         run: |
-          sudo apt-get update
+          set -e
+          # Workaround: Azure-hosted runner DNS cannot resolve azure.archive.ubuntu.com
+          # (repeated 'Temporary failure resolving azure.archive.ubuntu.com' in runs
+          # 43045861367 and 43054892005). Remove the Azure mirror config so apt uses
+          # the standard Ubuntu archive mirrors.
+          rm -f /etc/apt/apt-mirrors.txt
+          sudo apt-get update -o Acquire::Retries=3
           sudo apt-get install -y --no-install-recommends \
             wget bash bc gcc sed patch patchutils tar bzip2 gzip perl gawk gperf \
             zip unzip diffutils lzop libc6-dev libncurses5-dev \
