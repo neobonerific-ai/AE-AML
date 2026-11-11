@@ -1,5 +1,3 @@
-diff --git a/addons/skin.estuary/xml/Settings.xml b/addons/skin.estuary/xml/Settings.xml
-index 18ad102..9227cbe 100644
 --- a/addons/skin.estuary/xml/Settings.xml
 +++ b/addons/skin.estuary/xml/Settings.xml
 @@ -112,10 +112,10 @@
@@ -9,7 +7,7 @@ index 18ad102..9227cbe 100644
 -						<label>LibreELEC</label>
 -						<onclick>RunAddon(service.libreelec.settings)</onclick>
 -						<icon>icons/settings/libreelec.png</icon>
--						<visible>System.HasAddon(service.libreelec.settings)</visible>
+-						<visible>System.AddonIsEnabled(service.libreelec.settings)</visible>
 +						<label>AlexELEC</label>
 +						<onclick>RunAddon(service.alexelec.settings)</onclick>
 +						<icon>icons/settings/alexelec.png</icon>
@@ -17,6 +15,3 @@ index 18ad102..9227cbe 100644
  					</item>
  				</content>
  			</control>
--- 
-2.7.4
-
