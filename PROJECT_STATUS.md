@@ -12,6 +12,7 @@ Run ID: 42824150600 completed success @ 4cd8028 — BASELINE BUILD ERFOLGREICH A
   - PKG_SHA256 für Kodi 19.4 verifiziert (lokal heruntergeladen + sha256sum)
   - Patches unter projects/S812/packages/kodi/patches/ auf Kodi 19 kompatibilität prüfen (nach erstem Build-Lauf)
   - Abhängigkeiten für Kodi 19 prüfen (Python 2.7 beibehalten, libamcodec unverändert, keine DTB/Kernel-Änderungen)
+  - Verifikations-Build Run 42975848920 @ 052135c (kodi-100.28-Patch entfernt, da Run 42960073964 mit failure abgeschlossen wurde) per workflow_dispatch ausgeloest, Ergebnis offen.
   - Verifikations-Build Run 42873769980 @ b28bf7f: COMPLETED FAILURE — kodi-Package-Build scheitert an kodi-100.03-disable-online-check.patch, Hunk 1 xbmc/GUIInfoManager.cpp passt nicht auf Kodi 19.4 (Kontext fuer Kodi 18.3-Leia geschrieben). Fix: Commit a16dff3 passt Patch-Kontext an Kodi 19.4 Matrix an (patch --dry-run an e12e66e0 erfolgreich), gepusht nach kodi-19.4-m8s. Neuer Verifikations-Run 42888723753 per workflow_dispatch bei a16dff3 ausgeloest, laeuft.
 
 ## Processed Runs
