@@ -35,8 +35,12 @@ jobs:
           set -e
           # Workaround: Azure-hosted runner DNS cannot resolve azure.archive.ubuntu.com
           # (repeated 'Temporary failure resolving azure.archive.ubuntu.com' in runs
-          # 43045861367 and 43054892005). Remove the Azure mirror config so apt uses
-          # the standard Ubuntu archive mirrors.
+          # 43045861367 and 43054892005). The runner pre-configures apt sources via
+          # mirror+file:/etc/apt/apt-mirrors.txt (Azure mirrors). Simply deleting the
+          # mirror file leaves dangling mirror+file sources, so apt-get update fails.
+          # Replace them with standard archive.ubuntu.com sources first, then drop the
+          # mirror file.
+          sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list /etc/apt/sources.list.d/* 2>/dev/null || true
           sudo rm -f /etc/apt/apt-mirrors.txt
           sudo apt-get update -o Acquire::Retries=3
           sudo apt-get install -y --no-install-recommends \
