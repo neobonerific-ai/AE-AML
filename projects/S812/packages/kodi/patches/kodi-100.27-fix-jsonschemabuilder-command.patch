@@ -1,9 +1,9 @@
 --- a/xbmc/interfaces/json-rpc/schema/CMakeLists.txt
 +++ b/xbmc/interfaces/json-rpc/schema/CMakeLists.txt
-@@ -5,7 +5,7 @@
-  ${CMAKE_CURRENT_SOURCE_DIR}/notifications.json)
-
+@@ -7,5 +7,5 @@
  add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/${CORE_BUILD_DIR}/ServiceDescription.h
-- COMMAND JsonSchemaBuilder::JsonSchemaBuilder ${JSON_SRCS}
-+ COMMAND $<TARGET_FILE:JsonSchemaBuilder::JsonSchemaBuilder> ${JSON_SRCS}
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/${CORE_BUILD_DIR}
+-                   COMMAND JsonSchemaBuilder::JsonSchemaBuilder ${JSON_SRCS}
++                   COMMAND $<TARGET_FILE:JsonSchemaBuilder::JsonSchemaBuilder> ${JSON_SRCS}
+                    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/${CORE_BUILD_DIR}
+                    DEPENDS ${JSON_SRCS}
+                    COMMENT "Generating ServiceDescription.h")
